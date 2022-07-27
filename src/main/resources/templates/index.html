@@ -5,8 +5,9 @@
     <title>Accident</title>
 </head>
 <body>
-
-   Hello : Accident
-
+<h1>Пользователи </h1>
+<table th:each="user:${users}">
+    <tr th:text="${user}"/>
+</table>
 </body>
 </html>
