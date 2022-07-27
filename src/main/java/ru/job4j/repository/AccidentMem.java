@@ -25,6 +25,10 @@ public class AccidentMem {
         return accidents.values();
     }
 
+    public void create(Accident accident) {
+        accidents.put(accidents.size(), accident);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
