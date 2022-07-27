@@ -6,8 +6,29 @@
 </head>
 <body>
 <h1>Пользователи </h1>
-<table th:each="user:${users}">
+<table th:each="user:${users}" border="1">
     <tr th:text="${user}"/>
 </table>
+
+<div class="container">
+    <div class="row">
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th scope="col">Нарушение</th>
+                <th scope="col">Описание</th>
+                <th scope="col">Адрес</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="accident:${accidents}">
+                <td th:text="${accident.name}" />
+                <td th:text="${accident.text}" />
+                <td th:text="${accident.address}" />
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
