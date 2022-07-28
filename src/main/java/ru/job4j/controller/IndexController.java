@@ -17,8 +17,6 @@ public class IndexController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        List<String> users = Arrays.asList("Petr", "Ivan", "Denis", "Olga");
-        model.addAttribute("users", users);
         model.addAttribute("accidents", accidentService.findAll());
         return "index";
     }
