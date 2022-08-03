@@ -19,6 +19,6 @@ public class AccidentMem {
     }
 
     public void create(Accident accident) {
-        accidents.put(accidents.size(), accident);
+        accidents.put(accidents.size() + 1, accident);
     }
 }

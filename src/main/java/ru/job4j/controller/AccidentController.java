@@ -17,12 +17,12 @@ public class AccidentController {
 
     @GetMapping("/create")
     public String create() {
-        return "accident/create";
+        return "create";
     }
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident) {
         accidentService.create(accident);
-        return "redirect:/";
+        return "redirect:/index";
     }
 }
