@@ -5,6 +5,7 @@ import ru.job4j.model.Accident;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Repository
 public class AccidentMem {
@@ -22,5 +23,12 @@ public class AccidentMem {
 
     public void create(Accident accident) {
         accidents.put(ids.incrementAndGet(), accident);
+    }
+
+    public Accident findById(Integer id) {
+        return accidents.values().stream()
+                .filter(e -> e.getId() == id)
+                .findFirst()
+                .get();
     }
 }

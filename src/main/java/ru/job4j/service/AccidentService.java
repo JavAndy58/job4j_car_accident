@@ -20,4 +20,8 @@ public class AccidentService {
     public void create(Accident accident) {
         accidentMem.create(accident);
     }
+
+    public Accident findById(Integer id) {
+        return accidentMem.findById(id);
+    }
 }

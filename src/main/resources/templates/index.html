@@ -22,6 +22,7 @@
                 <td th:text="${accident.name}" />
                 <td th:text="${accident.text}" />
                 <td th:text="${accident.address}" />
+                <td><a th:href="@{|/update/${accident.id}|}">Изменение инцидента</a></td>
             </tr>
             </tbody>
         </table>
