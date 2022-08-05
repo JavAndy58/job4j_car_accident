@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <title>Accident</title>
 </head>
 <body>
@@ -12,28 +13,18 @@
             Редактирование инцидента.
         </div>
         <div class="card-body">
-            <form th:action="@{/save}" method="POST">
+            <form th:action="@{updateAccident}" method="POST" th:object="${accident}">
+                <input type="hidden" name="id" th:field="*{id}"/>
                 <div class="form-group">
                     <label for="name">Имя</label>
-                    <input type="text" class="form-control" name="name" id="name">
+                    <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
                 </div>
+
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>

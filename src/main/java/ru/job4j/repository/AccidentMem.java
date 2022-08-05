@@ -30,4 +30,8 @@ public class AccidentMem {
     public Accident findById(Integer id) {
         return accidents.get(id);
     }
+
+    public void update(Accident accident) {
+        accidents.replace(accident.getId(), accident);
+    }
 }

@@ -34,5 +34,9 @@ public class AccidentController {
         return "redirect:/index";
     }
 
-
+    @PostMapping("/updateAccident")
+    public String updateAccident(@ModelAttribute Accident accident) {
+        accidentService.update(accident);
+        return "redirect:/index";
+    }
 }

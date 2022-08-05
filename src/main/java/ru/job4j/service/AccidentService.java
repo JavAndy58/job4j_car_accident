@@ -24,4 +24,8 @@ public class AccidentService {
     public Accident findById(Integer id) {
         return accidentMem.findById(id);
     }
+
+    public void update(Accident accident) {
+        accidentMem.update(accident);
+    }
 }
