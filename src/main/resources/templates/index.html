@@ -15,7 +15,6 @@
                 <th scope="col">Нарушение</th>
                 <th scope="col">Описание</th>
                 <th scope="col">Адрес</th>
-                <th scope="col">Тип инцидента</th>
                 <th scope="col">Изменение</th>
             </tr>
             </thead>
@@ -24,7 +23,6 @@
                 <td th:text="${accident.name}" />
                 <td th:text="${accident.text}" />
                 <td th:text="${accident.address}" />
-                <td th:text="${accident.type.name}" />
                 <td>
                     <a th:href="@{|/update?id=${accident.id}|}">
                         Редактирование

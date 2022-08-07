@@ -9,24 +9,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.model.Accident;
 import ru.job4j.model.AccidentType;
 import ru.job4j.service.AccidentService;
+import ru.job4j.service.AccidentTypeService;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
 public class AccidentController {
     private final AccidentService accidentService;
+    private final AccidentTypeService accidentTypeService;
 
-    public AccidentController(AccidentService accidentService) {
+    public AccidentController(AccidentService accidentService, AccidentTypeService accidentTypeService) {
         this.accidentService = accidentService;
+        this.accidentTypeService = accidentTypeService;
     }
 
     @GetMapping("/create")
     public String create(Model model) {
-        List<AccidentType> types = new ArrayList<>();
-        types.add(AccidentType.of(1, "Две машины"));
-        types.add(AccidentType.of(2, "Машина и человек"));
-        types.add(AccidentType.of(3, "Машина и велосипед"));
+        Collection<AccidentType> types = accidentTypeService.findAll();
         model.addAttribute("types", types);
         return "create";
     }

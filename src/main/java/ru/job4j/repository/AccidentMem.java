@@ -18,7 +18,7 @@ public class AccidentMem {
         accidents.put(idsTwo, new Accident(idsTwo, "Пешеход", "Угроза пешеходу", "Московская", null));
     }
 
-    public Collection<Accident>findAll() {
+    public Collection<Accident> findAll() {
         return accidents.values();
     }
 
