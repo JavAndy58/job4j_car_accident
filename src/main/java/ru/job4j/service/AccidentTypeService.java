@@ -16,4 +16,8 @@ public class AccidentTypeService {
     public Collection<AccidentType> findAll() {
         return accidentTypeMem.findAll();
     }
+
+    public AccidentType findById(Integer id) {
+        return accidentTypeMem.findById(id);
+    }
 }

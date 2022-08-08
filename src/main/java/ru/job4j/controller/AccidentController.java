@@ -11,30 +11,28 @@ import ru.job4j.model.AccidentType;
 import ru.job4j.model.Rule;
 import ru.job4j.service.AccidentService;
 import ru.job4j.service.AccidentTypeService;
+import ru.job4j.service.RuleService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class AccidentController {
     private final AccidentService accidentService;
     private final AccidentTypeService accidentTypeService;
+    private final RuleService ruleService;
 
-    public AccidentController(AccidentService accidentService, AccidentTypeService accidentTypeService) {
+    public AccidentController(AccidentService accidentService, AccidentTypeService accidentTypeService, RuleService ruleService) {
         this.accidentService = accidentService;
         this.accidentTypeService = accidentTypeService;
+        this.ruleService = ruleService;
     }
 
     @GetMapping("/create")
     public String create(Model model) {
         Collection<AccidentType> types = accidentTypeService.findAll();
+        Collection<Rule> rules = ruleService.findAll();
         model.addAttribute("types", types);
-        List<Rule> rules = new ArrayList<>();
-        rules.add(Rule.of(1, "Статья. 1"));
-        rules.add(Rule.of(2, "Статья. 2"));
-        rules.add(Rule.of(3, "Статья. 3"));
         model.addAttribute("rules", rules);
         return "create";
     }
@@ -48,6 +46,13 @@ public class AccidentController {
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
         String[] ids = req.getParameterValues("rIds");
+        Set<Rule> ruleSet = new HashSet<>();
+        for (String id : ids) {
+            ruleSet.add(ruleService.findById(Integer.parseInt(id)));
+        }
+        accident.setRules(ruleSet);
+        int typeId = Integer.parseInt(req.getParameter("tId"));
+        accident.setType(accidentTypeService.findById(typeId));
         accidentService.create(accident);
         return "redirect:/index";
     }

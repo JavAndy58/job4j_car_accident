@@ -11,15 +11,22 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentTypeMem {
     private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
-    private final AtomicInteger ids = new AtomicInteger(4);
+    private final AtomicInteger ids = new AtomicInteger(0);
 
     public AccidentTypeMem() {
-        types.put(1, AccidentType.of(1, "Две машины"));
-        types.put(2, AccidentType.of(2, "Машина и человек"));
-        types.put(3, AccidentType.of(3, "Машина и велосипед"));
+        int idsOne = ids.incrementAndGet();
+        int idsTwo = ids.incrementAndGet();
+        int idsThree = ids.incrementAndGet();
+        types.put(idsOne, AccidentType.of(idsOne, "Две машины"));
+        types.put(idsTwo, AccidentType.of(idsTwo, "Машина и человек"));
+        types.put(idsThree, AccidentType.of(idsThree, "Машина и велосипед"));
     }
 
     public Collection<AccidentType> findAll() {
         return types.values();
+    }
+
+    public AccidentType findById(Integer id) {
+        return types.get(id);
     }
 }
