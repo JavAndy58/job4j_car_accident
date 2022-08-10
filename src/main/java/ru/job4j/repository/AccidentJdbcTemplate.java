@@ -1,14 +1,17 @@
 package ru.job4j.repository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.job4j.model.Accident;
 
 import java.util.List;
 
+@Repository
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
+    @Autowired
     public AccidentJdbcTemplate(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
     }

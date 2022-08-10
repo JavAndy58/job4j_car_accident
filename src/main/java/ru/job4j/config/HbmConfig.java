@@ -1,4 +1,4 @@
-package ru.job4j.repository;
+package ru.job4j.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.SessionFactory;
