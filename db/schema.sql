@@ -1,35 +1,26 @@
-CREATE TABLE IF NOT EXISTS rule
-(
-    id   SERIAL PRIMARY KEY,
+CREATE TABLE rule (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE accident_type (
+    id SERIAL PRIMARY KEY,
     name VARCHAR
 );
 
-INSERT INTO rule(name) VALUES ('Статья. 1');
-INSERT INTO rule(name) VALUES ('Статья. 2');
-INSERT INTO rule(name) VALUES ('Статья. 3');
-
-CREATE TABLE IF NOT EXISTS accident_type
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR
+CREATE TABLE accident (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    text VARCHAR(1000),
+    address VARCHAR(100),
+    accident_type_id INT REFERENCES accident_type (id)
 );
 
-INSERT INTO accident_type(name) VALUES ('Две машины');
-INSERT INTO accident_type(name) VALUES ('Машина и человек');
-INSERT INTO accident_type(name) VALUES ('Машина и велосипед');
-
-
-CREATE TABLE IF NOT EXISTS accident
-(
-    id      SERIAL PRIMARY KEY,
-    name    VARCHAR(2000),
-    text    TEXT,
-    address TEXT,
-    type_id INT REFERENCES rule (id)
-    );
-
-CREATE TABLE IF NOT EXISTS accident_rule (
+CREATE TABLE accident_rule (
     id SERIAL PRIMARY KEY,
     accident_id INT REFERENCES accident(id),
     rule_id INT REFERENCES rule(id)
 );
+
+INSERT INTO Accident_type(name) VALUES ('Две машины'), ('Машина и человек'), ('Машина и велосипед');
+INSERT INTO Rule(name) VALUES ('Статья. 1'), ('Статья. 2'), ('Статья. 3');
