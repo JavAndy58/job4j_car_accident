@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class AccidentTypeMem {
     private final Map<Integer, AccidentType> types = new ConcurrentHashMap<>();
     private final AtomicInteger ids = new AtomicInteger(0);

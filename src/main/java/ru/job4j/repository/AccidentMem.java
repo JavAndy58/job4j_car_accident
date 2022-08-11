@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+
 public class AccidentMem {
     private final HashMap<Integer, Accident> accidents = new HashMap<>();
     private final AtomicInteger ids = new AtomicInteger(0);

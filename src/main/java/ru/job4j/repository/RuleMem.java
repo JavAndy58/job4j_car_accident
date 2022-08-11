@@ -1,6 +1,5 @@
 package ru.job4j.repository;
 
-import org.springframework.stereotype.Repository;
 import ru.job4j.model.Rule;
 
 import java.util.Collection;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
 public class RuleMem {
     private final Map<Integer, Rule> ruleMap = new ConcurrentHashMap<>();
     private final AtomicInteger ids = new AtomicInteger(0);
