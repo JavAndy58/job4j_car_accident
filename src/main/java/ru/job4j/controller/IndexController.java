@@ -13,7 +13,7 @@ public class IndexController {
         this.accidentService = accidentService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/index")
     public String index(Model model) {
         model.addAttribute("accidents", accidentService.findAll());
         return "index";

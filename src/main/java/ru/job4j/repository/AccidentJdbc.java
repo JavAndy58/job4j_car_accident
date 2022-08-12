@@ -23,10 +23,11 @@ public class AccidentJdbc {
         this.jdbc = jdbc;
     }
 
-    public void save(Accident accident) {
+    public Accident save(Accident accident) {
         accident.setId(jdbc.update("INSERT INTO Accident (name, text, address, accident_type_id) VALUES (?, ?, ?, ?)",
                 accident.getName(), accident.getText(), accident.getAddress(), accident.getType().getId()));
         updateAccidentRuleTable(accident);
+        return accident;
     }
 
     public List<Accident> getAll() {
