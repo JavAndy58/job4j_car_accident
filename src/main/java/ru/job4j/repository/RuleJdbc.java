@@ -22,7 +22,7 @@ public class RuleJdbc {
     }
 
     public Rule findById(int id) {
-        return jdbc.query("SELECT * FROM Rule WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Rule.class))
-                .stream().findAny().orElse(null);
+        return jdbc.queryForObject("SELECT * FROM Rule WHERE id=?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Rule.class));
     }
 }

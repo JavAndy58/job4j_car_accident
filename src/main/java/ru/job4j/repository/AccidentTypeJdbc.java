@@ -1,5 +1,4 @@
 package ru.job4j.repository;
-
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,7 +19,7 @@ public class AccidentTypeJdbc {
     }
 
     public AccidentType findById(int id) {
-        return jdbc.query("SELECT * FROM Accident_type WHERE id=?", new Object[]{id},
-                        new BeanPropertyRowMapper<>(AccidentType.class)).stream().findAny().orElse(null);
+        return jdbc.queryForObject("SELECT * FROM Accident_type WHERE id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(AccidentType.class));
     }
 }

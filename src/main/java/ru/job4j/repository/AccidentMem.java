@@ -14,8 +14,8 @@ public class AccidentMem {
     private AccidentMem() {
         int idsOne = ids.incrementAndGet();
         int idsTwo = ids.incrementAndGet();
-        accidents.put(idsOne, new Accident(idsOne, "Обгон", "Обгон свяже 80 км", "Красная", null, null));
-        accidents.put(idsTwo, new Accident(idsTwo, "Пешеход", "Угроза пешеходу", "Московская", null, null));
+        accidents.put(idsOne, new Accident(idsOne, "Обгон", "Обгон свяже 80 км", "Красная", null));
+        accidents.put(idsTwo, new Accident(idsTwo, "Пешеход", "Угроза пешеходу", "Московская", null));
     }
 
     public Collection<Accident> findAll() {

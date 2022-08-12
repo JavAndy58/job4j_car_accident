@@ -24,24 +24,27 @@ public class AccidentJdbc {
     }
 
     public void save(Accident accident) {
-        accident.setId(jdbc.update("INSERT INTO Accident (name, text, address, type_id) VALUES (?, ?, ?, ?) RETURNING id",
+        accident.setId(jdbc.update("INSERT INTO Accident (name, text, address, accident_type_id) VALUES (?, ?, ?, ?)",
                 accident.getName(), accident.getText(), accident.getAddress(), accident.getType().getId()));
         updateAccidentRuleTable(accident);
     }
 
     public List<Accident> getAll() {
-        return jdbc.query("SELECT a.id AS id, a.name AS name, text, address, t.id AS t_id, t.name AS t_name"
-        + "FROM Accident a JOIN Accident_type t ON a.type_id = t.id", new AccidentMapper());
+        return jdbc.query("SELECT a.id AS id, a.name AS name, a.text, a.address, t.id AS t_id, t.name AS t_name"
+        + " FROM Accident a JOIN Accident_type t ON a.accident_type_id = t.id", new AccidentMapper());
     }
 
     public Accident findById(int id) {
-        return jdbc.query("SELECT * FROM Accident WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Accident.class))
-                .stream().findAny().orElse(null);
+        return jdbc.queryForObject("SELECT * FROM Accident a JOIN Accident_type t ON a.accident_type_id = t.id",
+                new AccidentMapper()
+        );
     }
 
     public void update(Accident accident) {
-        jdbc.update("UPDATE Accident SET name=?, text=?, address=?, type=?, rules=? WHERE id=?", accident.getName(),
-                accident.getText(), accident.getAddress(), accident.getType(), accident.getRules(), accident.getId());
+        jdbc.update("UPDATE Accident SET name=?, text=?, address=?, accident_type_id=? WHERE id=?",
+                accident.getName(), accident.getText(), accident.getAddress(), accident.getType(), accident.getId());
+        jdbc.update("DELETE FROM Accident_rule WHERE Accident_id = ?", accident.getId());
+        updateAccidentRuleTable(accident);
     }
 
     private void updateAccidentRuleTable(Accident accident) {
@@ -64,9 +67,8 @@ public class AccidentJdbc {
             );
             accident.setRules(Set.copyOf(
                     jdbc.query(
-                            "select r.id as id, r.name as name from accident_rule ar "
-                                    + "join rule r on r.id = ar.rule_id "
-                                    + "where ar.accident_id = ?",
+                            "SELECT r.id AS id, r.name AS name FROM Accident_rule AS ar "
+                                    + "JOIN Rule r ON r.id = ar.rule_id WHERE ar.accident_id = ?",
                             new Object[]{accident.getId()},
                             new BeanPropertyRowMapper(Rule.class)
                     ))
