@@ -7,7 +7,7 @@ import ru.job4j.model.AccidentType;
 
 import java.util.List;
 
-@Repository
+
 public class AccidentTypeJdbc {
     private final JdbcTemplate jdbc;
 

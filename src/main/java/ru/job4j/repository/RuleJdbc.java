@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.model.Rule;
 import java.util.List;
 
-@Repository
+
 public class RuleJdbc {
     private final JdbcTemplate jdbc;
 
