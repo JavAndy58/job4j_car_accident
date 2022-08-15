@@ -31,8 +31,8 @@ public class AccidentController {
     @GetMapping("/create")
     public String create(Model model) {
         Collection<AccidentType> types = accidentTypeService.findAll();
-        Collection<Rule> rules = ruleService.findAll();
         model.addAttribute("types", types);
+        Collection<Rule> rules = ruleService.findAll();
         model.addAttribute("rules", rules);
         return "create";
     }
@@ -45,15 +45,15 @@ public class AccidentController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, HttpServletRequest req) {
-        String[] ids = req.getParameterValues("rIds");
-        Set<Rule> ruleSet = new HashSet<>();
-        for (String id : ids) {
-            ruleSet.add(ruleService.findById(Integer.parseInt(id)));
+        String[] ruleIds = req.getParameterValues("rIds");
+        Set<Rule> rules = new HashSet<>();
+        for (String id : ruleIds) {
+            rules.add(ruleService.findById(Integer.parseInt(id)));
         }
-        accident.setRules(ruleSet);
+        accident.setRules(rules);
         int typeId = Integer.parseInt(req.getParameter("tId"));
         accident.setType(accidentTypeService.findById(typeId));
-        accidentService.create(accident);
+        accidentService.add(accident);
         return "redirect:/index";
     }
 

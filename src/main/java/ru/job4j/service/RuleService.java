@@ -2,23 +2,25 @@ package ru.job4j.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Rule;
-import ru.job4j.repository.RuleHibernate;
-
-import java.util.Collection;
+import ru.job4j.repository.RuleRepository;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class RuleService {
-    private final RuleHibernate ruleHibernate;
+    private final RuleRepository repository;
 
-    public RuleService(RuleHibernate ruleHibernate) {
-        this.ruleHibernate = ruleHibernate;
+    public RuleService(RuleRepository repository) {
+        this.repository = repository;
     }
 
-    public Collection<Rule> findAll() {
-        return ruleHibernate.getAll();
+    public List<Rule> findAll() {
+        List<Rule> rsl = new ArrayList<>();
+        repository.findAll().forEach(rsl::add);
+        return rsl;
     }
 
-    public Rule findById(Integer id) {
-        return ruleHibernate.findById(id);
+    public Rule findById(int id) {
+        return repository.findById(id).get();
     }
 }
