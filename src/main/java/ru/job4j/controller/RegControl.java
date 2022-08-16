@@ -8,31 +8,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.model.User;
 import ru.job4j.repository.AuthorityRepository;
 import ru.job4j.repository.UserRepository;
+import ru.job4j.service.AuthorityService;
+import ru.job4j.service.UserService;
 
 @Controller
 public class RegControl {
 
     private final PasswordEncoder encoder;
-    private final UserRepository users;
-    private final AuthorityRepository authorities;
+    private final UserService userService;
+    private final AuthorityService authorityService;
 
-    public RegControl(PasswordEncoder encoder, UserRepository users, AuthorityRepository authorities) {
+    public RegControl(PasswordEncoder encoder, UserService userService, AuthorityService authorityService) {
         this.encoder = encoder;
-        this.users = users;
-        this.authorities = authorities;
+        this.userService = userService;
+        this.authorityService = authorityService;
     }
 
-    @PostMapping("/req")
+    @PostMapping("/reg")
     public String reqSave(@ModelAttribute User user) {
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
-        user.setAuthority(authorities.findByAuthority("ROLE_USER"));
-        users.save(user);
+        user.setAuthority(authorityService.findByAuthority("ROLE_USER"));
+        userService.save(user);
         return "redirect:/login";
     }
 
-    @GetMapping("/req")
+    @GetMapping("/reg")
     public String reqPage() {
-        return "req";
+        return "reg";
     }
 }

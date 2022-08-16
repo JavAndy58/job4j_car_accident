@@ -26,26 +26,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select username, password, enabled "
                         + "from users "
                         + "where username = ?")
-                .authoritiesByUsernameQuery(
-                        " select u.username, a.authority "
+                .authoritiesByUsernameQuery("select u.username, a.authority "
                                 + "from authorities as a, users as u "
                                 + "where u.username = ? and u.authority_id = a.id");
     }
 
-    @Bean(name = "passwordEncoder")
-    public static PasswordEncoder passwordEncoder() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login")
+                .antMatchers("/login", "/reg")
                 .permitAll()
                 .antMatchers("/**")
                 .hasAnyRole("ADMIN", "USER")
-                .antMatchers("/login", "/reg")
-                .permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
