@@ -6,6 +6,10 @@
 </head>
 <body>
 <a class="nav-link" th:href="@{/create}">Добавление инцидента</a>
+<a class="nav-item nav-link" th:href="@{/logout}">
+    <span th:text="${user.Username}"></span>
+    <span> | Выйти</span>
+</a>
 
 <div class="container">
     <div class="row">
