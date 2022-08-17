@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.model.User;
-import ru.job4j.repository.AuthorityRepository;
-import ru.job4j.repository.UserRepository;
 import ru.job4j.service.AuthorityService;
 import ru.job4j.service.UserService;
+
+import java.util.Optional;
 
 @Controller
 public class RegControl {
@@ -26,6 +26,12 @@ public class RegControl {
 
     @PostMapping("/reg")
     public String reqSave(@ModelAttribute User user) {
+
+        for (User userDb: userService.findAll()) {
+            if (user.getUsername().equals(userDb.getUsername())) {
+                return "redirect:/reg";
+            }
+        }
         user.setEnabled(true);
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorityService.findByAuthority("ROLE_USER"));
