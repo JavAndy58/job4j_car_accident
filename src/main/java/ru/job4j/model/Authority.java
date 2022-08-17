@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "authorities")
+@Table(name = "authorities", uniqueConstraints = @UniqueConstraint(columnNames = "authority"))
+
 public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
