@@ -21,6 +21,3 @@ CREATE TABLE accident_rule (
     accident_id INT REFERENCES accident(id),
     rule_id INT REFERENCES rule(id)
 );
-
-INSERT INTO Accident_type(name) VALUES ('Две машины'), ('Машина и человек'), ('Машина и велосипед');
-INSERT INTO Rule(name) VALUES ('Статья. 1'), ('Статья. 2'), ('Статья. 3');
